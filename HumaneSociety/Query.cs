@@ -170,24 +170,29 @@ namespace HumaneSociety
         }
 
         // TODO: Animal CRUD Operations
-        internal static void AddAnimal(Animal animal)
+        internal static void AddAnimal(Animal animal) //program test doesn't work
         {
-            throw new NotImplementedException();
+            db.Animals.InsertOnSubmit(animal);
+            db.SubmitChanges();
         }
 
         internal static Animal GetAnimalByID(int id)
         {
-            throw new NotImplementedException();
+            Animal animal = new Animal();
+            animal = db.Animals.FirstOrDefault(a => a.AnimalId == id);
+            return animal;
         }
 
         internal static void UpdateAnimal(int animalId, Dictionary<int, string> updates)
-        {            
-            throw new NotImplementedException();
+        {
+            Animal animal = db.Animals.Where(a => a.AnimalId == animalId).FirstOrDefault();
+            db.SubmitChanges();
         }
 
         internal static void RemoveAnimal(Animal animal)
         {
-            throw new NotImplementedException();
+            db.Animals.DeleteOnSubmit(animal);
+            db.SubmitChanges();
         }
         
         // TODO: Animal Multi-Trait Search
@@ -199,12 +204,14 @@ namespace HumaneSociety
         // TODO: Misc Animal Things
         internal static int GetCategoryId(string categoryName)
         {
-            throw new NotImplementedException();
+            var catId = db.Categories.Where(c => c.Name.Equals(categoryName)).FirstOrDefault();
+            return catId.CategoryId;
         }
         
         internal static Room GetRoom(int animalId)
         {
-            throw new NotImplementedException();
+            var room = db.Rooms.Where(a => a.AnimalId == animalId).FirstOrDefault();
+            return room;
         }
         
         internal static int GetDietPlanId(string dietPlanName)
