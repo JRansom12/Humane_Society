@@ -105,7 +105,7 @@
         <elementListCompartment Id="3da02341-9fc7-4236-b491-e06559d8f04f" absoluteBounds="5.14, 3.335, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(2.5 : 4.63985607942708); (2.84375 : 4.63985607942708); (2.84375 : 3.734375); (5.09375 : 3.734375); (5.09375 : 4.2769189453125); (6.125 : 4.2769189453125); (6.125 : 4.2612939453125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.5 : 3.90225291796875); (2.859375 : 3.90225291796875); (2.859375 : 3.734375); (5.109375 : 3.734375); (5.109375 : 4.2769189453125); (6.125 : 4.2769189453125); (6.125 : 4.2612939453125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/HumaneSocietyDataContext/Animal/Animal_Room" />
       <nodes>
         <classShapeMoniker Id="55ca2b74-57e2-4e0b-944c-55e8be8290e5" />
