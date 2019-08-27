@@ -170,7 +170,7 @@ namespace HumaneSociety
         }
 
         // TODO: Animal CRUD Operations
-        internal static void AddAnimal(Animal animal)
+        internal static void AddAnimal(Animal animal) //program test doesn't work
         {
             db.Animals.InsertOnSubmit(animal);
             db.SubmitChanges();
