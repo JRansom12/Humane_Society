@@ -47,8 +47,8 @@
     <Compile Include="Admin.cs" />
     <Compile Include="Customer.cs" />
     <Compile Include="HumaneSociety.designer.cs">
-      <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
       <DependentUpon>HumaneSociety.dbml</DependentUpon>
     </Compile>
     <Compile Include="PointOfEntry.cs" />

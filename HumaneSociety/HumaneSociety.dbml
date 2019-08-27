@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="HumaneSociety" Class="HumaneSocietyDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=LAPTOP-JC4EIJCF\SQLEXPRESS;Initial Catalog=HumaneSociety;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False" SettingsObjectName="HumaneSociety.Properties.Settings" SettingsPropertyName="HumaneSocietyConnectionString4" Provider="System.Data.SqlClient" />
+  <Connection Mode="AppSettings" ConnectionString="Data Source=LAPTOP-6KR1NFGP\SQLEXPRESS;Initial Catalog=HumaneSociety;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False" SettingsObjectName="HumaneSociety.Properties.Settings" SettingsPropertyName="HumaneSocietyConnectionString3" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Addresses" Member="Addresses">
     <Type Name="Address">
       <Column Name="AddressId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -9,6 +9,17 @@
       <Column Name="Zipcode" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="Address_Client" Member="Clients" ThisKey="AddressId" OtherKey="AddressId" Type="Client" />
       <Association Name="USState_Address" Member="USState" ThisKey="USStateId" OtherKey="USStateId" Type="USState" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Adoptions" Member="Adoptions">
+    <Type Name="Adoption">
+      <Column Name="ClientId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="AnimalId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ApprovalStatus" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="AdoptionFee" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PaymentCollected" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="Animal_Adoption" Member="Animal" ThisKey="AnimalId" OtherKey="AnimalId" Type="Animal" IsForeignKey="true" />
+      <Association Name="Client_Adoption" Member="Client" ThisKey="ClientId" OtherKey="ClientId" Type="Client" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Animals" Member="Animals">
@@ -31,17 +42,6 @@
       <Association Name="Category_Animal" Member="Category" ThisKey="CategoryId" OtherKey="CategoryId" Type="Category" IsForeignKey="true" />
       <Association Name="DietPlan_Animal" Member="DietPlan" ThisKey="DietPlanId" OtherKey="DietPlanId" Type="DietPlan" IsForeignKey="true" />
       <Association Name="Employee_Animal" Member="Employee" ThisKey="EmployeeId" OtherKey="EmployeeId" Type="Employee" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Adoptions" Member="Adoptions">
-    <Type Name="Adoption">
-      <Column Name="ClientId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="AnimalId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="ApprovalStatus" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="AdoptionFee" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="PaymentCollected" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Association Name="Animal_Adoption" Member="Animal" ThisKey="AnimalId" OtherKey="AnimalId" Type="Animal" IsForeignKey="true" />
-      <Association Name="Client_Adoption" Member="Client" ThisKey="ClientId" OtherKey="ClientId" Type="Client" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.AnimalShots" Member="AnimalShots">
