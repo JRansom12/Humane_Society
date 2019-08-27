@@ -329,8 +329,8 @@ ASALocalRun/
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
 
-App.config
+HumaneSociety/App.config
 
-Properties/Settings.settings
+HumaneSociety/Properties/Settings.settings
 
-Properties/Settings.Designer.cs
+HumaneSociety/Properties/Settings.Designer.cs
