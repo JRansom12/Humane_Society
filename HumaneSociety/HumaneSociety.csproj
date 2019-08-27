@@ -66,7 +66,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="App1.config" />
     <None Include="HumaneSociety.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>HumaneSociety.designer.cs</LastGenOutput>
