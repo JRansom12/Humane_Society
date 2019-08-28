@@ -180,7 +180,7 @@ namespace HumaneSociety
                     db.SubmitChanges();
                     break;
                 case "delete":
-                    var employeeToDelete = db.Employees.FirstOrDefault(e => e.EmployeeNumber == employee.EmployeeNumber);
+                    var employeeToDelete = db.Employees.FirstOrDefault(e => e.LastName == employee.LastName);
                     db.Employees.DeleteOnSubmit(employeeToDelete);
                     db.SubmitChanges();
                     break;
@@ -196,7 +196,7 @@ namespace HumaneSociety
         }
 
         // TODO: Animal CRUD Operations
-        internal static void AddAnimal(Animal animal) //program test doesn't work
+        internal static void AddAnimal(Animal animal)
         {
             db.Animals.InsertOnSubmit(animal);
             db.SubmitChanges();
@@ -216,7 +216,7 @@ namespace HumaneSociety
                 switch (el.Key)
                 {
                     case 1:
-                        animal.CategoryId = int.Parse(el.Value);
+                        animal.CategoryId = GetCategoryId(el.Value);
                         break;
                     case 2:
                         animal.Name = el.Value;
@@ -228,21 +228,21 @@ namespace HumaneSociety
                         animal.Demeanor = el.Value;
                         break;
                     case 5:
-                        if (el.Value == "0")
+                        if (el.Value == "False")
                         {
                             animal.KidFriendly = false;
                         }
-                        else
+                        else if (el.Value == "True")
                         {
                             animal.KidFriendly = true;
                         }
                         break;
                     case 6:
-                        if (el.Value == "0")
+                        if (el.Value == "False")
                         {
                             animal.PetFriendly = false;
                         }
-                        else
+                        else if (el.Value == "True")
                         {
                             animal.PetFriendly = true;
                         }
@@ -274,9 +274,7 @@ namespace HumaneSociety
                 switch (el.Key)
                 {
                     case 1:
-                        var categoryName = db.Categories.Where(c => c.Name == el.Value).FirstOrDefault();
-                        var categoryInt = categoryName.CategoryId;
-                        animals = animals.Where(a => a.CategoryId == categoryInt);
+                        animals = animals.Where(a => a.CategoryId == GetCategoryId(el.Value));
                         break;
                     case 2:
                         animals = animals.Where(a => a.Name == el.Value);
@@ -360,7 +358,15 @@ namespace HumaneSociety
 
         internal static void UpdateAdoption(bool isAdopted, Adoption adoption)
         {
-            throw new NotImplementedException();
+            if(isAdopted == true)
+            {
+                adoption.ApprovalStatus = "Approved";
+            }
+            else
+            {
+                adoption.ApprovalStatus = "Not approved";
+                RemoveAdoption(adoption.AnimalId, adoption.ClientId);
+            }
         }
 
         internal static void RemoveAdoption(int animalId, int clientId)
@@ -379,8 +385,13 @@ namespace HumaneSociety
 
         internal static void UpdateShot(string shotName, Animal animal)
         {
-            db.Shots.Where(a => a.Name == shotName);
-            db.AnimalShots.Where(a => a.AnimalId == animal.AnimalId);
+            var shotId = db.Shots.Where(a => a.Name == shotName).Select(s => s.ShotId).Single();
+            AnimalShot animalShot = new AnimalShot()
+            {
+                AnimalId = animal.AnimalId,
+                ShotId = shotId
+            };
+            db.AnimalShots.InsertOnSubmit(animalShot);
             db.SubmitChanges();
         }
     }
