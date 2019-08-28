@@ -166,7 +166,33 @@ namespace HumaneSociety
         // TODO: Allow any of the CRUD operations to occur here
         internal static void RunEmployeeQueries(Employee employee, string crudOperation)
         {
-            throw new NotImplementedException();
+            switch (crudOperation)
+            {
+                case "update":
+                    var employeeToUpdate = db.Employees.FirstOrDefault(e => e.EmployeeNumber == employee.EmployeeNumber);
+                    employeeToUpdate.FirstName = employee.FirstName;
+                    employeeToUpdate.LastName = employee.LastName;
+                    employeeToUpdate.Email = employee.Email;
+                    db.SubmitChanges();
+                    break;
+                case "create":
+                    db.Employees.InsertOnSubmit(employee);
+                    db.SubmitChanges();
+                    break;
+                case "delete":
+                    var employeeToDelete = db.Employees.FirstOrDefault(e => e.EmployeeNumber == employee.EmployeeNumber);
+                    db.Employees.DeleteOnSubmit(employeeToDelete);
+                    db.SubmitChanges();
+                    break;
+                case "read":
+                    var employeeToReturn = db.Employees.FirstOrDefault(e => e.EmployeeNumber == employee.EmployeeNumber);
+                    List<string> info = new List<string>() { "Name: " + employeeToReturn.FirstName + " " + employeeToReturn.LastName, "User Name: " + employeeToReturn.UserName, "Email: " + employeeToReturn.Email };
+                    UserInterface.DisplayUserOptions(info);
+                    Console.ReadLine();
+                    break;
+                default:
+                    break;
+            }
         }
 
         // TODO: Animal CRUD Operations
@@ -178,20 +204,64 @@ namespace HumaneSociety
 
         internal static Animal GetAnimalByID(int id)
         {
-            Animal animal = new Animal();
-            animal = db.Animals.FirstOrDefault(a => a.AnimalId == id);
+            var animal = db.Animals.FirstOrDefault(a => a.AnimalId == id);
             return animal;
         }
 
         internal static void UpdateAnimal(int animalId, Dictionary<int, string> updates)
         {
             Animal animal = db.Animals.Where(a => a.AnimalId == animalId).FirstOrDefault();
+            foreach (KeyValuePair<int,string> el in updates)
+            {
+                switch (el.Key)
+                {
+                    case 1:
+                        animal.CategoryId = int.Parse(el.Value);
+                        break;
+                    case 2:
+                        animal.Name = el.Value;
+                        break;
+                    case 3:
+                        animal.Age = int.Parse(el.Value);
+                        break;
+                    case 4:
+                        animal.Demeanor = el.Value;
+                        break;
+                    case 5:
+                        if (el.Value == "0")
+                        {
+                            animal.KidFriendly = false;
+                        }
+                        else
+                        {
+                            animal.KidFriendly = true;
+                        }
+                        break;
+                    case 6:
+                        if (el.Value == "0")
+                        {
+                            animal.PetFriendly = false;
+                        }
+                        else
+                        {
+                            animal.PetFriendly = true;
+                        }
+                        break;
+                    case 7:
+                        animal.Weight = int.Parse(el.Value);
+                        break;
+                    case 8:
+                        animal.AnimalId = int.Parse(el.Value);
+                        break;
+                }
+            }
             db.SubmitChanges();
         }
 
         internal static void RemoveAnimal(Animal animal)
         {
-            db.Animals.DeleteOnSubmit(animal);
+            var animalToRemove = db.Animals.FirstOrDefault(a => a.AnimalId == animal.AnimalId);
+            db.Animals.DeleteOnSubmit(animalToRemove);
             db.SubmitChanges();
         }
         
@@ -216,18 +286,26 @@ namespace HumaneSociety
         
         internal static int GetDietPlanId(string dietPlanName)
         {
-            throw new NotImplementedException();
+            var dietId = db.DietPlans.Where(a => a.Name.Equals(dietPlanName)).FirstOrDefault();
+            return dietId.DietPlanId;
         }
 
         // TODO: Adoption CRUD Operations
         internal static void Adopt(Animal animal, Client client)
         {
-            throw new NotImplementedException();
+            Adoption adoption = new Adoption();
+            adoption.ClientId = client.ClientId;
+            adoption.AnimalId = animal.AnimalId;
+            adoption.ApprovalStatus = "Pending";
+            adoption.AdoptionFee = null;
+            adoption.PaymentCollected = false;
+            db.SubmitChanges();
         }
 
         internal static IQueryable<Adoption> GetPendingAdoptions()
         {
-            throw new NotImplementedException();
+            var pendingAdoptions = db.Adoptions.Where(a => a.ApprovalStatus == "Pending");
+            return pendingAdoptions;
         }
 
         internal static void UpdateAdoption(bool isAdopted, Adoption adoption)
@@ -237,18 +315,23 @@ namespace HumaneSociety
 
         internal static void RemoveAdoption(int animalId, int clientId)
         {
-            throw new NotImplementedException();
+            var adoptToRemove = db.Adoptions.Where(a => a.AnimalId == animalId && a.ClientId == clientId).FirstOrDefault();
+            db.Adoptions.DeleteOnSubmit(adoptToRemove);
+            db.SubmitChanges();
         }
 
         // TODO: Shots Stuff
         internal static IQueryable<AnimalShot> GetShots(Animal animal)
         {
-            throw new NotImplementedException();
+            var shots = db.AnimalShots.Where(a => a.AnimalId == animal.AnimalId);
+            return shots;
         }
 
         internal static void UpdateShot(string shotName, Animal animal)
         {
-            throw new NotImplementedException();
+            db.Shots.Where(a => a.Name == shotName);
+            db.AnimalShots.Where(a => a.AnimalId == animal.AnimalId);
+            db.SubmitChanges();
         }
     }
 }
