@@ -11,8 +11,8 @@ namespace HumaneSociety
         static void Main(string[] args)
         {
             PointOfEntry.Run();
-            var dict = UserInterface.GetAnimalSearchCriteria();
-            Query.UpdateAnimal(11, dict);
+            //var dict = UserInterface.GetAnimalSearchCriteria();
+            //Query.UpdateAnimal(11, dict);
         }
     }
 }
