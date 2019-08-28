@@ -186,7 +186,7 @@ namespace HumaneSociety
                     break;
                 case "read":
                     var employeeToReturn = db.Employees.FirstOrDefault(e => e.EmployeeNumber == employee.EmployeeNumber);
-                    List<string> info = new List<string>() { "Name: " + employeeToReturn.FirstName + " " + employeeToReturn.LastName, "User Name: " + employeeToReturn.UserName, "Email: " + employeeToReturn.Email };
+                    List<string> info = new List<string>() { "Name: " + employeeToReturn.FirstName + " " + employeeToReturn.LastName, "User Name: " + employeeToReturn.UserName, "Email: " + employeeToReturn.Email};
                     UserInterface.DisplayUserOptions(info);
                     Console.ReadLine();
                     break;
@@ -211,7 +211,7 @@ namespace HumaneSociety
         internal static void UpdateAnimal(int animalId, Dictionary<int, string> updates)
         {
             Animal animal = db.Animals.Where(a => a.AnimalId == animalId).FirstOrDefault();
-            foreach (KeyValuePair<int,string> el in updates)
+            foreach (KeyValuePair<int, string> el in updates)
             {
                 switch (el.Key)
                 {
@@ -258,7 +258,7 @@ namespace HumaneSociety
             db.SubmitChanges();
         }
 
-        internal static void RemoveAnimal(Animal animal)
+    internal static void RemoveAnimal(Animal animal)
         {
             var animalToRemove = db.Animals.FirstOrDefault(a => a.AnimalId == animal.AnimalId);
             db.Animals.DeleteOnSubmit(animalToRemove);
