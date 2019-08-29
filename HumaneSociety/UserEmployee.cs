@@ -161,9 +161,11 @@ namespace HumaneSociety
         {
             List<string> shotInfo = new List<string>();
             var shots = Query.GetShots(animal);
+            
             foreach(AnimalShot shot in shots.ToList())
             {
                 shotInfo.Add($"{shot.Shot.Name} Date: {shot.DateReceived}");
+                
             }
 
             if (shotInfo.Count > 0)

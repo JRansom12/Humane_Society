@@ -196,7 +196,7 @@ namespace HumaneSociety
         }
 
         // TODO: Animal CRUD Operations
-        internal static void AddAnimal(Animal animal) //program test doesn't work
+        internal static void AddAnimal(Animal animal)
         {
             db.Animals.InsertOnSubmit(animal);
             db.SubmitChanges();
@@ -232,7 +232,7 @@ namespace HumaneSociety
                         {
                             animal.KidFriendly = false;
                         }
-                        else if(el.Value == "True")
+                        else if (el.Value == "True")
                         {
                             animal.KidFriendly = true;
                         }
@@ -242,7 +242,7 @@ namespace HumaneSociety
                         {
                             animal.PetFriendly = false;
                         }
-                        else if(el.Value == "True")
+                        else if (el.Value == "True")
                         {
                             animal.PetFriendly = true;
                         }
