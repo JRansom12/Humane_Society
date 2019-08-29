@@ -361,6 +361,7 @@ namespace HumaneSociety
             if(isAdopted == true)
             {
                 adoption.ApprovalStatus = "Approved";
+                db.SubmitChanges();
             }
             else
             {
